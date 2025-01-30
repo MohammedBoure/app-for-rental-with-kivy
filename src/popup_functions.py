@@ -73,7 +73,7 @@ def show_popup_1():
 
 
 def show_popup_2(list_of_data):
-    relaod_of_data_metal()  # تأكد من إعادة تحميل البيانات في قاعدة البيانات
+    relaod_of_data_metal()  
 
     def remove_contact(contact_box):
         if contact_box in content.children:  
@@ -92,7 +92,7 @@ def show_popup_2(list_of_data):
 
     content.bind(minimum_height=content.setter('height'))
     
-    list_of_data = list_of_data[1:]  # تجاهل أول عنصر في القائمة إذا كان غير مطلوب
+    list_of_data = list_of_data[1:] 
     
     for data in list_of_data:
         num = data[0]
@@ -121,16 +121,14 @@ def show_popup_2(list_of_data):
         
     scroll_view.add_widget(content)
     
-    # ضبط ارتفاع popup بناءً على محتوى content
     def adjust_popup_height(instance, value):
-        max_height = 800  # أقصى ارتفاع للـ Popup
-        new_height = min(content.height, max_height)  # ضبط الارتفاع الجديد
-        scroll_view.height = new_height + 30  # إضافة بعض المساحة للتمرير
-        popup.height = new_height + 200  # إضافة بعض المساحة للـ Popup
+        max_height = 800  
+        new_height = min(content.height, max_height) 
+        scroll_view.height = new_height + 30
+        popup.height = new_height + 200
 
     content.bind(height=adjust_popup_height)
     
-    # إنشاء Popup مع حجم يتناسب مع المحتوى
     popup = Popup(title="Number   Dimensions   Number_present   Number_used    Prix", 
                   content=scroll_view, 
                   size_hint=(0.8, None))  
@@ -152,7 +150,6 @@ def show_popup_3():
     scroll_view = ScrollView(size_hint=(1, None), do_scroll_x=False)  
     content = BoxLayout(orientation='vertical', spacing=10, padding=[10, 10, 10, 10], size_hint_y=None)
 
-    # Adding header label
     content.add_widget(Label(text=arabic("A:رقم التعريف     B:المنتج      C:الإسم \n      D:رقم الهاتف     E:العدد المستخدم       F:التاريخ    G:تم العمل "),size_hint_y=None, height=80,font_name='ArabicFont'))
 
     content.bind(minimum_height=content.setter('height'))
@@ -163,7 +160,7 @@ def show_popup_3():
 
     def update_content(instance, text): 
         content.clear_widgets()  # Clear old content
-        # Re-add header label
+
         content.add_widget(Label(text=arabic("A:رقم التعريف   B:النتج   C:الإسم   \n D:رقم الهاتف     E:العدد المستخدم    F:التاريخ    G:تم العمل "), 
                                  size_hint_y=None, height=80, font_name='ArabicFont'))
         content.add_widget(input_data)  # Re-add input field
@@ -205,25 +202,23 @@ def show_popup_3():
   
 def show_popup_4():
     content = BoxLayout(orientation='vertical', spacing=10, padding=[10, 10, 10, 10], size_hint_y=None)
-    content.bind(minimum_height=content.setter('height'))  # لتمكين قياس ارتفاع المحتوى
+    content.bind(minimum_height=content.setter('height')) 
 
     content.add_widget(Label(text=arabic("هذه صفحة منبثقة 4"), size_hint_y=None, height=40, font_name='ArabicFont'))
 
     close_button = Button(text=arabic("إغلاق"), size_hint_y=None, height=50, font_name='ArabicFont')
     content.add_widget(close_button)
 
-    # إنشاء Popup
-    popup = Popup(title="screen 4", content=content, size_hint=(0.8, None), height=400)  # ارتفاع افتراضي
+    popup = Popup(title="screen 4", content=content, size_hint=(0.8, None), height=400)
 
     close_button.bind(on_press=popup.dismiss)
     
-    # تعديل ارتفاع Popup بناءً على محتوى BoxLayout
     def adjust_popup_height(instance, value):
-        max_height = 400  # أقصى ارتفاع
-        new_height = min(content.height, max_height)  # ارتفاع جديد بناءً على المحتوى
-        popup.height = new_height + 100  # إضافة مساحة إضافية
+        max_height = 400  
+        new_height = min(content.height, max_height) 
+        popup.height = new_height + 100 
 
-    content.bind(height=adjust_popup_height)  # ربط تعديل ارتفاع المحتوى
+    content.bind(height=adjust_popup_height)
 
     popup.open()
 
@@ -258,7 +253,6 @@ def info(text):
     content = GridLayout(cols=2, padding=10, spacing=10, size_hint_y=None)
     content.bind(minimum_height=content.setter('height'))
     
-    # إضافة المعلومات في GridLayout
     content.add_widget(Label(text=f"{a}", size_hint_y=None, height=30, font_size=18))
     content.add_widget(Label(text=arabic("رقم التعريف:"), size_hint_y=None, height=30, font_size=18, font_name='ArabicFont'))
 
@@ -283,7 +277,6 @@ def info(text):
     content.add_widget(Label(text=f"{g}", size_hint_y=None, height=30, font_size=18))
     content.add_widget(Label(text=arabic("الدفع:"), size_hint_y=None, height=30, font_size=18, font_name='ArabicFont'))
 
-    # إعداد ScrollView للمحتوى الطويل
     h_box_layout = BoxLayout(orientation='vertical', size_hint_y=None, height=200)
     h_scroll_view = ScrollView(size_hint=(1, None), size=(400, 200), bar_width=10)
     
@@ -306,16 +299,14 @@ def info(text):
     layout.add_widget(scroll_view)
     layout.add_widget(close_button)
     
-    # دالة لضبط ارتفاع Popup
     def adjust_popup_height(instance, value):
-        max_height = 600  # أقصى ارتفاع
-        new_height = min(content.height + 70, max_height)  # إضافة بعض المساحة
-        scroll_view.height = new_height  # ضبط ارتفاع ScrollView
-        popup.height = new_height + 70  # ضبط ارتفاع Popup
+        max_height = 600  
+        new_height = min(content.height + 70, max_height)
+        scroll_view.height = new_height
+        popup.height = new_height + 70
     
     content.bind(height=adjust_popup_height)
     
-    # إنشاء Popup
     popup = Popup(title='data', content=layout, size_hint=(0.8, None), height=600)  
     popup.open()
 

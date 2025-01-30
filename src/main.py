@@ -58,16 +58,14 @@ class ContactList(BoxLayout):
             else:
                 btn_text = arabic(f"زر {i}")
             
-            # استخدام size_hint بدلاً من الحجم الثابت
             btn = Button(text=btn_text, size_hint=(0.25, 1), font_name='ArabicFont')
             btn.bind(on_press=self.get_popup_function(i))
             self.top_button_layout.add_widget(btn)
 
-        # محتوى الصفحة الرئيسي
         self.main_content_layout = BoxLayout(orientation='vertical', spacing=10, padding=[10, 0, 10, 10])
 
       
-        input_height = screen_height * 0.05  # تعيين ارتفاع يعتمد على نسبة من ارتفاع الشاشة
+        input_height = screen_height * 0.05
         
         self.dimensions_of_metal = Spinner(
             text=arabic("dim"),
@@ -107,17 +105,15 @@ class ContactList(BoxLayout):
             text=arabic("أدخل"),
             on_press=self.add_contact,
             size_hint_y=None,
-            height=screen_height * 0.08,  # حجم أكبر بناءً على الشاشة
+            height=screen_height * 0.08,
             font_name='ArabicFont'
         )
         
-        # إضافة ScrollView لتناسب الحقول
         self.scroll_view = ScrollView(size_hint=(1, 1), size=(screen_width, screen_height * 0.5))
         self.contact_labels = GridLayout(cols=1, size_hint_y=None)
         self.contact_labels.bind(minimum_height=self.contact_labels.setter('height'))
         self.scroll_view.add_widget(self.contact_labels)
 
-        # إضافة العناصر إلى التخطيط الرئيسي
         self.main_content_layout.add_widget(self.dimensions_of_metal)
         self.main_content_layout.add_widget(self.full_name)
         self.main_content_layout.add_widget(self.Number_of_phone)
@@ -128,7 +124,6 @@ class ContactList(BoxLayout):
         self.main_content_layout.add_widget(self.entre)
         self.main_content_layout.add_widget(self.scroll_view)
 
-        # إضافة التخطيطات إلى الواجهة
         self.add_widget(self.top_button_layout)
         self.add_widget(self.main_content_layout)
 
@@ -221,12 +216,10 @@ class ContactList(BoxLayout):
             if not serch_in_list([num, dim, full_name, Number_phone, Number_of_items, Date, Price_has_been_paid, Comment], self.list_client):
                 Create_and_add_clients_data(dim, full_name, Number_phone, Number_of_items, Date, Price_has_been_paid, Comment)
 
-            # ضبط المحتويات داخل BoxLayout تلقائيًا
             contact_box = BoxLayout(size_hint_y=None, height=60)  # يمكن تغيير الارتفاع أو جعلها متكيفة
             label_text = f"{num}  {dim}   {full_name}"
             label = Label(text=arabic(label_text), size_hint=(.6, 1), font_name='ArabicFont')
 
-            # أزرار التفاعل (حذف، تعديل، معلومات)
             remove_button = Button(
                 text=arabic("حذف"), 
                 on_press=lambda x: self.confirm_remove(contact_box), 
@@ -246,16 +239,13 @@ class ContactList(BoxLayout):
                 font_name='ArabicFont'
             )
 
-            # إضافة المكونات إلى BoxLayout
             contact_box.add_widget(label)
             contact_box.add_widget(remove_button)
             contact_box.add_widget(edit_button)
             contact_box.add_widget(info_button)
 
-            # إضافة contact_box إلى القائمة
             self.contact_labels.add_widget(contact_box)
 
-            # تفريغ المدخلات بعد الإضافة
             self.clear_inputs()
 
             
@@ -273,17 +263,13 @@ class ContactList(BoxLayout):
         Price_has_been_paid = self.price_has_been_paid.text  
         Comment = self.Comment.text
 
-        # التأكد من أن جميع الحقول ممتلئة قبل إضافة الاتصال
         if dim and full_name and Number_phone and Number_of_items and Date and Price_has_been_paid and Comment:
             
-            # BoxLayout للحفاظ على تنسيق العرض
             contact_box = BoxLayout(size_hint_y=None, height=60)
             label_text = f"{num}  {dim}   {full_name}"
             
-            # إضافة المكونات
             label = Label(text=label_text, size_hint=(.6, 1))
 
-            # زر الحذف
             remove_button = Button(
                 text=arabic("حذف"), 
                 on_press=lambda x: self.confirm_remove(contact_box), 
@@ -291,7 +277,6 @@ class ContactList(BoxLayout):
                 font_name='ArabicFont'
             )
 
-            # زر التعديل
             edit_button = Button(
                 text=arabic("تعديل"), 
                 size_hint=(.2, 1), 
@@ -299,7 +284,6 @@ class ContactList(BoxLayout):
                 on_press=lambda x: self.edit_contact(num, dim, full_name, Number_phone, Number_of_items, Date, Price_has_been_paid, Comment, contact_box)
             )
 
-            # زر المعلومات
             info_button = Button(
                 text=arabic("معلومات"), 
                 on_press=lambda x: info(num), 
@@ -307,16 +291,13 @@ class ContactList(BoxLayout):
                 font_name='ArabicFont'
             )
 
-            # إضافة المكونات إلى BoxLayout
             contact_box.add_widget(label)
             contact_box.add_widget(remove_button)
             contact_box.add_widget(edit_button)
             contact_box.add_widget(info_button)
 
-            # إضافة contact_box إلى واجهة الاتصال
             self.contact_labels.add_widget(contact_box)
 
-            # تفريغ المدخلات بعد إضافة الاتصال
             self.clear_inputs()
     """
         Loads the selected contact's details into the input fields for editing. When the user selects 'Edit', this method
