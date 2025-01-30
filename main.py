@@ -66,7 +66,7 @@ class ContactList(BoxLayout):
         # محتوى الصفحة الرئيسي
         self.main_content_layout = BoxLayout(orientation='vertical', spacing=10, padding=[10, 0, 10, 10])
 
-        # تعديل حجم الحقول بناءً على حجم الشاشة
+      
         input_height = screen_height * 0.05  # تعيين ارتفاع يعتمد على نسبة من ارتفاع الشاشة
         
         self.dimensions_of_metal = Spinner(
@@ -273,13 +273,17 @@ class ContactList(BoxLayout):
         Price_has_been_paid = self.price_has_been_paid.text  
         Comment = self.Comment.text
 
+        # التأكد من أن جميع الحقول ممتلئة قبل إضافة الاتصال
         if dim and full_name and Number_phone and Number_of_items and Date and Price_has_been_paid and Comment:
             
+            # BoxLayout للحفاظ على تنسيق العرض
             contact_box = BoxLayout(size_hint_y=None, height=60)
             label_text = f"{num}  {dim}   {full_name}"
             
-            label = Label(text=arabic(label_text), size_hint=(.6, 1), font_name='ArabicFont')
+            # إضافة المكونات
+            label = Label(text=label_text, size_hint=(.6, 1))
 
+            # زر الحذف
             remove_button = Button(
                 text=arabic("حذف"), 
                 on_press=lambda x: self.confirm_remove(contact_box), 
@@ -400,13 +404,13 @@ class ContactList(BoxLayout):
 
         content = BoxLayout(orientation='vertical')
 
-        content.add_widget(Label(text=arabic("هل أنت متأكد من حذف هذه الجهة؟"), size_hint_y=None, height=40, font_name='ArabicFont'))
+        content.add_widget(Label(text=arabic("هل أنت متأكد من حذف هذه الجهة؟"), size_hint_y=None, height=80, font_name='ArabicFont'))
 
-        label_to_show = Label(text=label_text, size_hint_y=None, height=40, font_name='ArabicFont')
+        label_to_show = Label(text=label_text, size_hint_y=None, height=80, font_name='ArabicFont')
         content.add_widget(label_to_show)
 
-        yes_button = Button(text=arabic("نعم"), size_hint_y=None, height=50, font_name='ArabicFont')
-        no_button = Button(text=arabic("لا"), size_hint_y=None, height=50, font_name='ArabicFont')
+        yes_button = Button(text=arabic("نعم"), size_hint_y=None, height=100, font_name='ArabicFont')
+        no_button = Button(text=arabic("لا"), size_hint_y=None, height=100, font_name='ArabicFont')
 
         content.add_widget(yes_button)
         content.add_widget(no_button)
